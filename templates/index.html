@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alto el lápiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="contenedor inicio">
+        <header class="hero">
+            <span class="etiqueta">JUEGO MULTIJUGADOR</span>
+            <h1>Alto el <span>lápiz!</span></h1>
+            <p>Piensa rápido, completa las categorías y consigue puntos.</p>
+        </header>
+
+        <section class="tarjeta">
+            <h2>Crear una partida</h2>
+            <form action="{{ url_for('crear_sala') }}" method="POST">
+                <label for="nombre-crear">Tu nombre</label>
+                <input
+                    id="nombre-crear"
+                    type="text"
+                    name="nombre"
+                    maxlength="20"
+                    placeholder="Escribe tu nombre"
+                    required
+                >
+                <button type="submit">Crear sala</button>
+            </form>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Unirse a una partida</h2>
+            <form action="{{ url_for('unirse_sala') }}" method="POST">
+                <label for="nombre-unir">Tu nombre</label>
+                <input
+                    id="nombre-unir"
+                    type="text"
+                    name="nombre"
+                    maxlength="20"
+                    placeholder="Escribe tu nombre"
+                    required
+                >
+
+                <label for="codigo">Código de la sala</label>
+                <input
+                    id="codigo"
+                    type="text"
+                    name="codigo"
+                    maxlength="5"
+                    placeholder="Ej. A7B2C"
+                    required
+                >
+
+                <button type="submit" class="boton-secundario">Unirse a la sala</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>Proyecto desarrollado con Python, Flask y JavaScript.</p>
+        </footer>
+    </main>
+</body>
+</html>

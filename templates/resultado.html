@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados | Alto el lápiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="contenedor">
+        <header class="resultado-titulo">
+            <span class="etiqueta">PARTIDA FINALIZADA</span>
+            <h1>Clasificación <span>final</span></h1>
+            <p>Sala: <strong>{{ codigo }}</strong></p>
+        </header>
+
+        <section class="tarjeta">
+            <h2>Resultados</h2>
+
+            {% if clasificacion %}
+                <table class="tabla-resultados">
+                    <thead>
+                        <tr>
+                            <th>Posición</th>
+                            <th>Jugador</th>
+                            <th>Puntos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for jugador in clasificacion %}
+                            <tr>
+                                <td>
+                                    {% if loop.index == 1 %}
+                                        🥇
+                                    {% elif loop.index == 2 %}
+                                        🥈
+                                    {% elif loop.index == 3 %}
+                                        🥉
+                                    {% else %}
+                                        {{ loop.index }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ jugador.nombre }}</td>
+                                <td><strong>{{ jugador.puntos }}</strong></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% for jugador in clasificacion %}
+                    <div class="detalle-respuestas">
+                        <h3>{{ jugador.nombre }} — {{ jugador.puntos_ronda }} puntos en esta ronda</h3>
+                        <ul>
+                            {% for categoria, detalle in jugador.detalle.items() %}
+                                <li>
+                                    <strong>{{ categoria|capitalize }}:</strong>
+                                    {{ detalle.respuesta }}
+                                    — {{ detalle.puntos }} puntos
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No hay resultados disponibles.</p>
+            {% endif %}
+
+            <a href="{{ url_for('inicio') }}" class="enlace boton-volver">
+                Volver al inicio
+            </a>
+        </section>
+
+        <footer>
+            <p>Alto el lápiz · Proyecto web con Python y JavaScript</p>
+        </footer>
+    </main>
+</body>
+</html>

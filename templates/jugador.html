@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partida | Alto el lápiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='game.js') }}" defer></script>
+</head>
+<body>
+    <main class="contenedor partida"
+          id="juego"
+          data-codigo="{{ codigo }}"
+          data-nombre="{{ nombre }}">
+
+        <header class="barra-superior">
+            <a href="{{ url_for('inicio') }}" class="enlace">← Inicio</a>
+            <div class="codigo-sala">
+                Sala <strong id="codigo-sala">{{ codigo }}</strong>
+            </div>
+        </header>
+
+        <section class="cabecera-partida">
+            <span class="etiqueta">ALTO EL LÁPIZ</span>
+            <h1>¡A jugar, <span id="nombre-jugador">{{ nombre }}</span>!</h1>
+            <p id="estado">Conectando a la sala...</p>
+        </section>
+
+        <section class="tarjeta">
+            <div class="encabezado-lista">
+                <h2>Jugadores</h2>
+                <span id="total-jugadores">0 jugadores</span>
+            </div>
+
+            <ul id="lista-jugadores">
+                <li class="vacio">Esperando jugadores...</li>
+            </ul>
+
+            <button id="iniciar" hidden>Comenzar partida</button>
+        </section>
+
+        <section class="panel-juego tarjeta">
+            <div class="panel-ronda">
+                <div>
+                    <span class="texto-pequeno">LETRA</span>
+                    <div id="letra" class="letra">?</div>
+                </div>
+
+                <div class="temporizador">
+                    <span class="texto-pequeno">TIEMPO</span>
+                    <strong id="tiempo">60</strong>
+                    <span>segundos</span>
+                </div>
+            </div>
+
+            <p class="instruccion">
+                Escribe una respuesta por categoría que empiece por la letra indicada.
+            </p>
+
+            <form id="formulario-respuestas">
+                <div class="rejilla-categorias">
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" data-categoria="nombre" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellido">Apellido</label>
+                        <input id="apellido" data-categoria="apellido" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="lugar">Lugar</label>
+                        <input id="lugar" data-categoria="lugar" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="comida">Comida</label>
+                        <input id="comida" data-categoria="comida" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="animal">Animal</label>
+                        <input id="animal" data-categoria="animal" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="marca">Marca</label>
+                        <input id="marca" data-categoria="marca" maxlength="100" disabled>
+                    </div>
+
+                    <div class="campo">
+                        <label for="objeto">Objeto</label>
+                        <input id="objeto" data-categoria="objeto" maxlength="100" disabled>
+                    </div>
+                </div>
+
+                <button id="alto" type="button" class="boton-alto" disabled>
+                    ¡Alto el lápiz!
+                </button>
+            </form>
+
+            <p id="mensaje" aria-live="polite"></p>
+        </section>
+
+        <footer>
+            <p>Respuestas correctas y únicas: 10 puntos. Las demás: 0 puntos.</p>
+        </footer>
+    </main>
+</body>
+</html>
